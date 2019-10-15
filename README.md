@@ -15,7 +15,7 @@ Using PHPCompatibility requires you to first install PHP CodeSniffer globally an
 The easiest way is to create a shell function for `phpco`. No need to clone this repository. First make sure you have [Docker](https://docs.docker.com/install) installed on your machine. Then execute this in your local terminal:
 
 ```sh
-phpco() { docker run --init -v $PWD:/mnt/src:cached --rm -u "$(id -u):$(id -g)" frbit/phpco:latest $@; return $?; }
+phpco() { docker run --init -v $PWD:/mnt/src:cached --rm -u "$(id -u):$(id -g)" blanxi/phpco:latest $@; return $?; }
 ```
 
 You can also add this snippet to your `.bashrc` or similar shell startup script. That way it will always be available whenever you open a new shell.
@@ -32,12 +32,6 @@ If you have also updated all of your dependencies and are sure they support the 
 
 ```
 phpco -p --colors --extensions=php . -n --ignore="vendor/"
-```
-
-## Running out of memory?
-You can specify custom memory limit for the container if it's needed when exporting the function just add a the value you need with -d memory_limit=<value>
-```sh
-phpco() { docker run --init -v $PWD:/mnt/src:cached --rm -u "$(id -u):$(id -g)" frbit/phpco:latest $@ -d memory_limit=-1; return $?; }
 ```
 
 Remember: Since this is running within a docker container, the paths to your source files will start with `/mnt/src/` instead of the actual absolute path on your host computer.
